@@ -10,11 +10,20 @@ public class Visitor extends User {
         this.typeOfID = typeOfID;
     }
 
+    public String getPurposeOfVisit() {
+        return purposeOfVisit;
+    }
+
+    public String getTypeOfID() {
+        return typeOfID;
+    }
+
     @Override 
     public void navigate() {
         System.out.println("Visitor access: public locations onl");
     }
 
+    @Override 
     public boolean authenticate(){
         return true;
     }

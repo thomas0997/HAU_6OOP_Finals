@@ -9,6 +9,14 @@ public abstract class User {
         this.usertype = usertype;
     }
 
+    public String getUserID() {
+        return userid;    
+    }
+
+    public String getUserType() {
+        return usertype;
+    }
+
     public abstract void navigate();
 
     public abstract boolean authenticate();
