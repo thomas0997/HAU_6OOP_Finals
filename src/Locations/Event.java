@@ -12,24 +12,11 @@ public class Event extends CampusEntity {
         this.organizer = organizer;
     }
 
-    public String getDateTime() {
-        return dateTime;
-    }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
-    }
 
-    public String getOrganizer() {
-        return organizer;
-    }
-
-    public void setOrganizer(String organizer) {
-        this.organizer = organizer;
-    }
 
     @Override
     public String getInfo() {
-        return "[Event] " + getName() + " | " + dateTime + " | Organizer: " + organizer;
+        return "Event " + getName() + " | " + dateTime + " | Organizer: " + organizer;
     }
 }
