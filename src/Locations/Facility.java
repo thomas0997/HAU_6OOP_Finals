@@ -6,9 +6,10 @@ public class Facility extends CampusEntity {
  
     private String facilityType;
  
-    public Facility(String id, String name, String description, double x, double y,
+    public Facility(String name, String description, double x, double y, String id, 
                      String facilityType) {
-        super(id, name, description, x, y);
+        super(name, description, x, y, id);
+
         this.facilityType = facilityType;
     }
  
@@ -18,6 +19,6 @@ public class Facility extends CampusEntity {
     
     @Override
     public String getInfo() {
-        return "[Facility] " + getName() + " │ Type: " + facilityType;
+        return "[Facility] " + getName() + " | Type: " + facilityType;
     }
 }

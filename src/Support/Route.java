@@ -1,5 +1,24 @@
 package Support;
 
-public class Route {
-    
+import Locations.CampusEntity;
+
+public class Route  {
+    private double totalDistance;
+    private CampusEntity[] waypoints;
+
+    Route(CampusEntity[] waypoints){ this.waypoints = waypoints; }
+
+    public void calculateRoute() throws NavigationException{
+        if (waypoints == null){throw new LocationNotFoundException(Messages.msg[1]);}
+        
+        totalDistance = 0;
+        for (int i = 0; i < waypoints.length - 2; i++) {
+            double dx = waypoints[i+1].getX() - waypoints[i].getX();
+            double dy = waypoints[i+1].getY() - waypoints[i].getY();
+            totalDistance += Math.sqrt(dx*dx + dy*dy);
+        }        
+    }
+
+    public double getTotalDistance(){ return totalDistance; }
+
 }

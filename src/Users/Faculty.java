@@ -20,7 +20,7 @@ public class Faculty extends User {
     }
 
     @Override 
-    public boolean authenticate () {
+    public boolean authenticate() {
         if (password.equals("faculty123")) {
             return true;
         } else {
