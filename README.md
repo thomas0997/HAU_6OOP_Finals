@@ -1,115 +1,159 @@
-# Java File Build Order — Campus Navigation App
+# Campus Navigation App
 
-## Stage 1 — Build First (everything else depends on this)
+A CLI-based Java application built for the 6OOP course at Holy Angel University. It simulates campus navigation and information services using core Object-Oriented Programming principles: encapsulation, inheritance, polymorphism, exception handling, and arrays of objects.
 
-### `CampusEntity.java` — Satumbaga, Hans Drew
-- Abstract class — cannot be instantiated directly
-- Fields: `id`, `name`, `x`, `y`, `description` (all private)
-- Constructor + getters/setters for all fields
-- Abstract method: `getInfo()` — every subclass must define its own version
-- Implements `Navigable` interface
-
-### `Navigable.java` — Satumbaga, Hans Drew
-- Interface with one method: `getDirections()`
-- No implementation — just declares that any class using it must provide this method
+**Team:** David, Francis Nathan · Dayrit, Sean Deniel · Franco, Thomas · Rodriguez, Daniel Rein · Satumbaga, Hans Drew
+**Section:** CYB-201
 
 ---
 
-## Stage 2 — Build After Stage 1 (can be done in parallel with each other)
+## What It Does
 
-### `Building.java` — Rodriguez, Daniel Rein
-- Extends `CampusEntity`
-- Adds: `floorCount` (int), `facilities[]` (String array)
-- Overrides `getInfo()` to describe a building
+- View all campus locations (buildings, events, facilities), loaded from a CSV file
+- Log in as a Faculty, Student, or Visitor, each with different access to location data
+- Plan a route between two locations and calculate straight-line distance
+- View the campus map as an image
+- Persist student records between program runs
 
-### `AcademicBuilding.java` — Rodriguez, Daniel Rein
-- Extends `Building` (multi-level inheritance)
-- Adds: `coursesOffered[]`
-- Overrides `getInfo()`
-
-### `AdminBuilding.java` — Rodriguez, Daniel Rein
-- Extends `Building`
-- Adds: `officeHours`
-- Overrides `getInfo()`
-
-### `Event.java` — David, Francis Nathan
-- Extends `CampusEntity`
-- Adds: `dateTime`, `organizer`
-- Overrides `getInfo()`
-
-### `Facility.java` — David, Francis Nathan
-- Extends `CampusEntity`
-- Adds: `facilityType`
-- Overrides `getInfo()`
+Locations are placed on a simulated Cartesian plane (not real GPS), and route distance uses the standard two-point distance formula from Analytic Geometry.
 
 ---
 
-## Stage 2 (Independent) — Can Be Built Anytime, No Dependency on Stage 1
+## Project Structure
 
-### `User.java` — Dayrit, Sean Deniel
-- Abstract class
-- Fields: `userId`, `userType`
-- Abstract methods: `navigate()`, `authenticate()`
-
-### `Student.java` — Dayrit, Sean Deniel
-- Extends `User`
-- Adds: `studentId`, `course`
-- Overrides `navigate()` and `authenticate()` (always returns true — no password needed)
-
-### `Faculty.java` — Dayrit, Sean Deniel
-- Extends `User`
-- Adds: `password`, `facultyID`
-- Overrides `authenticate()` — checks password against a hardcoded value
-
-### `Visitor.java` — Dayrit, Sean Deniel
-- Extends `User`
-- Adds: `purposeOfVisit`, `typeOfID`
-- Overrides `navigate()` and `authenticate()` (always true)
-
-### `NavigationException.java` — Franco, Thomas
-- Extends `Exception`
-- Field: `errorCode`
-- Custom exception used across the whole program
-- No dependency on any other custom class — can be built anytime
-
-### `LocationNotFoundException.java` — Franco, Thomas
-- Extends `NavigationException`
-- No new fields — inherits `errorCode`
-- Used specifically when a location search fails
-
-### `Messages.java` — Franco, Thomas
-- Static String array holding all error messages, indexed by number
-- Used by `NavigationException` and `DataManager` so error text isn't repeated everywhere
-- No dependency on any other custom class — can be built anytime
+```
+├── Data
+│   ├── CampusData.csv       (campus location data — buildings, events, facilities)
+│   ├── Records.csv          (persisted student records)
+│   └── UpdatedCampusMap.png (image shown by showMap())
+├── src
+│   ├── Locations
+│   │   ├── CampusEntity.java      (abstract base class)
+│   │   ├── Navigable.java         (interface)
+│   │   ├── Building.java
+│   │   ├── AcademicBuilding.java
+│   │   ├── AdminBuilding.java
+│   │   ├── Event.java
+│   │   └── Facility.java
+│   ├── Users
+│   │   ├── User.java              (abstract base class)
+│   │   ├── Student.java
+│   │   ├── Faculty.java
+│   │   └── Visitor.java
+│   ├── Support
+│   │   ├── Route.java
+│   │   ├── DataManager.java
+│   │   ├── Messages.java
+│   │   ├── NavigationException.java
+│   │   └── LocationNotFoundException.java
+│   └── Root
+│       └── Main.java
+├── LICENSE
+└── README.md
+```
 
 ---
 
-## Stage 3 — Build After Stage 2 Is Done
+## Class Reference
 
-### `Route.java` — Franco, Thomas
-- Needs: `CampusEntity` (and its subclasses to test properly), `NavigationException`
-- Fields: `waypoints[]` (array of `CampusEntity` — the required array of objects), `totalDistance`
-- `calculateRoute()` — loops through waypoints, applies the distance formula, throws `NavigationException` if something's wrong
+### Location System
 
-### `DataManager.java` — Franco, Thomas
-- Needs: `Student`, `NavigationException`
-- Field: `filePath`
-- `saveStudents()` / `loadStudents()` — reads/writes `Student` data to `Records.csv`
-- Only class allowed to touch the file directly
+| Class | Fields | Notes |
+|---|---|---|
+| `CampusEntity` (abstract) | `id, name, description, x, y` | Base class for every physical location. Implements `Navigable`. Declares abstract `getInfo()`. |
+| `Navigable` (interface) | — | Requires `getDirections(): String`. |
+| `Building` | `floorCount, facilities[]` | Extends `CampusEntity`. |
+| `AcademicBuilding` | `coursesOffered[]` | Extends `Building` — multi-level inheritance. |
+| `AdminBuilding` | `officeHours` | Extends `Building` — multi-level inheritance. |
+| `Event` | `dateTime, organizer` | Extends `CampusEntity`. |
+| `Facility` | `facilityType` | Extends `CampusEntity`. |
+
+### User System
+
+| Class | Fields | Notes |
+|---|---|---|
+| `User` (abstract) | `userId` (auto-generated), `userType` | Declares abstract `navigate()` and `authenticate()`. |
+| `Student` | `studentId, program` | `authenticate()` always returns true. `navigate()` shows all locations except `AdminBuilding`. |
+| `Faculty` | `password, facultyID` | `authenticate()` checks a hardcoded password. `navigate()` shows every location, unfiltered. |
+| `Visitor` | `purposeOfVisit, typeOfID` | `authenticate()` always returns true. `navigate()` shows only `Facility` and `Event` locations. |
+
+### Support System
+
+| Class | Purpose |
+|---|---|
+| `Route` | Holds a `CampusEntity[] waypoints` array. `calculateRoute()` computes total straight-line distance; throws `LocationNotFoundException` if fewer than 2 waypoints. |
+| `DataManager` | Only class allowed to touch the CSV files. `saveStudents()`/`loadStudents()` handle `Records.csv`. `loadCampusData()` reads `CampusData.csv` and rebuilds the correct subclass per row. |
+| `NavigationException` | Custom exception for navigation, authentication, and file errors. |
+| `LocationNotFoundException` | Extends `NavigationException`. Thrown when a searched location doesn't exist. |
+| `Messages` | Static `msg[]` array of predefined error strings, shared across the program. |
+| `Main` | Entry point. Forces login before showing the menu, then loops on: view map, view locations (role-filtered), plan a route, exit. |
 
 ---
 
-## Stage 4 — Build Last (needs everything above to compile)
+## How Access Differs by Role
 
-### `Main.java` — Franco, Thomas
-- Entry point: `main()`, `menu()`, `login()`, `showMap()`
-- Creates the array of all `CampusEntity` objects (hardcoded from the building table)
-- Ties every other class together into one working program
+| Location Type | Visitor | Student | Faculty |
+|---|---|---|---|
+| Facility | ✅ | ✅ | ✅ |
+| Event | ✅ | ✅ | ✅ |
+| Building / AcademicBuilding | ❌ | ✅ | ✅ |
+| AdminBuilding | ❌ | ❌ | ✅ |
 
 ---
 
-**Summary of order:**
-1. Hans → `CampusEntity`, `Navigable`
-2. Daniel + Francis (parallel) → Building hierarchy, Event/Facility — *and, independently, at any time* → Sean → User hierarchy, Thomas → Exceptions/Messages
-3. Thomas → `Route`, `DataManager`
-4. Thomas → `Main`
+## Data Files
+
+**`CampusData.csv`** — one row per location, in the format:
+```
+type,id,name,description,x,y,extra1,extra2,facilities
+```
+`type` is one of `Admin`, `Academic`, `Building`, `Facility`, `Event`, and determines which subclass `DataManager.loadCampusData()` builds. Lists (`coursesOffered`, `facilities`) are semicolon-separated within their cell.
+
+**`Records.csv`** — one row per saved student, format: `studentId,program`. Written automatically on Student login; not manually edited.
+
+---
+
+## Compiling and Running
+
+From the project root:
+
+```bash
+javac -d bin src/Root/Main.java src/Users/*.java src/Support/*.java src/Locations/*.java
+java -cp bin Root.Main
+```
+
+Run from the project root specifically — `Main` reads `Data/CampusData.csv`, `Data/Records.csv`, and `Data/UpdatedCampusMap.png` using relative paths.
+
+---
+
+## Scope
+
+- Storing and managing user records for students, faculty, and visitors
+- Calculating shortest straight-line distance between two points
+- Viewing all registered campus locations, events, and facility details
+- Differentiating access per user role
+- Login/authentication with a hardcoded password check for faculty
+- Loading campus location data from CSV, so new locations can be added without recompiling
+- Displaying the campus map as an image
+- Custom exception handling for invalid input and missing data
+
+## Limitations
+
+- No real-time GPS or live location tracking
+- No graphical map rendered within the program — map is a static external image
+- No pathfinding algorithm — distance is a straight line, not a walkable route
+- No live/dynamic event updates
+- Coordinates are simulated on an imaginary Cartesian plane
+- No real database — both CSVs are flat files, no query support, no concurrency protection
+- No real authentication security — credentials are hardcoded, not encrypted
+- Map image can't be closed programmatically once opened
+- Single-user operation only
+
+---
+
+## Build Order (for reference)
+
+1. `CampusEntity`, `Navigable`
+2. `Building` → `AcademicBuilding`, `AdminBuilding` · `Event`, `Facility` · `User` → `Student`, `Faculty`, `Visitor` · `NavigationException`, `LocationNotFoundException`, `Messages` (all independent of each other)
+3. `Route`, `DataManager`
+4. `Main`
