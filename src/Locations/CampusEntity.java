@@ -22,7 +22,7 @@ public abstract class CampusEntity implements Navigable{
     public abstract String getInfo();
     
     public String getDirections() {
-        return "Directions to " + name + ": (X: " + x + ", Y: " + y + ")";
+        return "Coordinates of " + name + ": (X: " + x + ", Y: " + y + ")";
     }
 
 }

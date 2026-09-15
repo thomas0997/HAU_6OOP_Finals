@@ -2,6 +2,9 @@ package Root;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import javax.sound.sampled.SourceDataLine;
+
 import java.awt.Desktop;
 
 import Users.*;
@@ -15,6 +18,8 @@ public class Main {
     public static CampusEntity[] campus;
     static DecimalFormat df = new DecimalFormat("##,##0.00");
     static Scanner input = new Scanner(System.in);
+
+
     public static User login() throws NavigationException{
         System.out.println("""
 [1] Faculty
@@ -123,7 +128,9 @@ public class Main {
                 [1] Display Campus Map
                 [2] View All Locations and Events
                 [3] Plan a Route
-                [4] Exit""");
+                [4] Search
+                [5] Get Coordinates of a Location
+                [6] Exit""");
             try{
                 System.out.print("Enter Choice: ");
                 userChoice = input.nextInt();
@@ -138,7 +145,7 @@ public class Main {
             switch (userChoice) {
                 case 1 -> showMap("Data/UpdatedCampusMap.png");
 
-                case 2 -> currentUser.navigate(); // shows role-filtered locations again
+                case 2 -> { System.out.println(); currentUser.navigate();} // shows role-filtered locations again
 
                 case 3 -> {
                     try {
@@ -147,9 +154,9 @@ public class Main {
                             System.out.println(e.getId() + " - " + e.getName());
                         }
                         System.out.print("Enter starting location ID: ");
-                        String startId = input.nextLine();
+                        String startId = input.nextLine().toUpperCase();
                         System.out.print("Enter destination location ID: ");
-                        String endId = input.nextLine();
+                        String endId = input.nextLine().toUpperCase();
 
                         CampusEntity start = null, end = null;
                         for (CampusEntity e : campus) {
@@ -162,13 +169,72 @@ public class Main {
 
                         Route route = new Route(new CampusEntity[]{start, end});
                         route.calculateRoute();
-                        System.out.println("Total Distance: " + df.format(route.getTotalDistance()));
+                        System.out.println("Total Distance: " + df.format(route.getTotalDistance()) + " Imaginary Meters");
                     } catch (NavigationException e) {
                         System.out.println("Error: " + e.getMessage());
                     }
                 }
 
+
                 case 4 -> {
+                    System.out.println("\nSEARCH");
+                    try{
+                        System.out.print("Enter What to Search: "); String term = input.nextLine().toLowerCase();
+                        
+                        boolean isFound = false;
+                        for (CampusEntity e : campus){
+                            boolean nameMatch = e.getName().toLowerCase().contains(term);
+                            boolean facilityMatch = false;
+                            if (e instanceof Building bldg){
+                                for (String facility : bldg.getFacilities()){
+                                    if (facility.toLowerCase().contains(term)){
+                                        facilityMatch = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (facilityMatch || nameMatch){
+                                System.out.println(e.getInfo());
+                                isFound = true;
+                            }
+                        }
+                        if (!(isFound)){
+                            System.out.println(term + " is Not Found!");
+                        }
+                    }catch(Exception e){
+                        System.out.println("Error: " + Messages.msg[4]);
+                    }
+                }
+
+
+                case 5 -> {
+
+                    try{
+                        System.out.println("\nAVAILABLE LOCATIONS");
+
+                        for(CampusEntity e : campus){
+                            System.out.println(e.getId() + " - " + e.getName());
+                        }
+                        System.out.print("Enter Location ID: "); String locId = input.nextLine();
+                        
+                        CampusEntity target = null;
+                        for (CampusEntity e : campus){
+                            if (e.getId().equalsIgnoreCase(locId)){
+                                target = e;
+                            }
+
+                        }
+                        if (target == null){
+                            throw new NavigationException(Messages.msg[3]);
+                        }
+                        System.out.println(target.getDirections());
+
+                    } catch (Exception e){
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                }
+
+                case 6 -> {
                     System.out.println("Exiting Program.");
                     System.out.println("Thank you!");
                     isRunning = false;
