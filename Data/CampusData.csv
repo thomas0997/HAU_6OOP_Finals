@@ -1,0 +1,7 @@
+type,id,name,description,x,y,extra1,extra2
+Admin,B1,Summit Hall,Main admin building,-8.4,-9.5,5,8AM-5PM
+Academic,B10,Thomas J Franco Nexus Bldg,ICT college building,6,10,4,BSIT;BSCS;BSCyberSec
+Building,B9,St. Gabriel Hall,Basic education building,5,5,3,
+Facility,B5,Colosseum Gym,Gym Sports Office Swimming Pool,-8,10,Gym,
+Facility,B16,Main Gate,Campus entrance,0,-14,Entrance,
+Event,E01,OOP Project Defense,Defense presentation for 6OOP,6,8,Oct 15 9AM,CYB-201

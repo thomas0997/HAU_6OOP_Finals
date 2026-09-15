@@ -69,65 +69,11 @@ public class Main {
     }
 
 
-    public static CampusEntity[] loadCampusData() {
-        return new CampusEntity[] {
-    
-            new AdminBuilding(
-                "Summit Hall",                          // name
-                "Main admin building",                  // description
-                -8.4, -9.5,                              // x, y
-                "B1",                                    // id
-                5,                                        // floorCount
-                new String[]{"President's Office", "Registrar", "Accounting"}, // facilities
-                "8AM-5PM"                                 // officeHours
-            ),
-    
-            new AcademicBuilding(
-                "Thomas J Franco Nexus Bldg",
-                "ICT college building",
-                6, 10,
-                "B10",
-                4,
-                new String[]{"Computer Lab", "Canteen"},
-                new String[]{"BSIT", "BSCS", "BSCyberSec"}
-            ),
-    
-            new Building(
-                "St. Gabriel Hall",
-                "Basic education building",
-                5, 5,
-                "B9",
-                3,
-                new String[]{"Library", "Faculty Room"}
-            ),
-    
-            new Facility(
-                "Colosseum Gym",
-                "Gym, Sports Office, Swimming Pool",
-                -8, 10,
-                "B5",
-                "Gym"
-            ),
-    
-            new Facility(
-                "Main Gate",
-                "Campus entrance",
-                0, -14,
-                "B16",
-                "Entrance"
-            ),
-    
-            new Event(
-                "OOP Project Defense",
-                "Defense presentation for 6OOP",
-                6, 8,
-                "E01",
-                "Oct 15, 9AM",
-                "CYB-201"
-            )
-    
-        };
+    public static CampusEntity[] loadCampusData() throws NavigationException {
+        DataManager campusManager = new DataManager("Data/CampusData.csv");
+        return campusManager.loadCampusData();
     }
+
     
 
     public static void showMap(String fileName){
@@ -149,7 +95,12 @@ public class Main {
 
 
     public static void main(String[] args) throws NavigationException{
-        campus = loadCampusData();
+        try {
+            campus = loadCampusData();
+        } catch (NavigationException e) {
+            System.out.println("Error: " + e.getMessage());
+            return; // can't run without campus data
+        }
         User currentUser = null;
 
         // Force login before anything else
