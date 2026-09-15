@@ -1,7 +1,7 @@
 package Support;
 
 public class Messages {
-    static String msg[] = {
+    public static String msg[] = {
         "Data not Valid",
         "Location not found in the campus database!",
         "Route could not be calculated",

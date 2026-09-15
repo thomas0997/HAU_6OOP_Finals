@@ -1,7 +1,7 @@
 package Support;
 
 public class LocationNotFoundException extends NavigationException{
-    LocationNotFoundException(String message){
-        super("ERROR!", message);
+    public LocationNotFoundException(String message){
+        super(message);
     }
 }

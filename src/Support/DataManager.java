@@ -21,7 +21,7 @@ public class DataManager {
             }
 
         }catch(Exception e){
-            throw new NavigationException("ERR003", Messages.msg[3]);
+            throw new NavigationException(Messages.msg[3]);
         }
     }
 
@@ -32,11 +32,11 @@ public class DataManager {
 
             while ((line = reader.readLine()) != null){
                 String[] parts = line.split(",");
-                list.add(new Student(parts[0], "Student", parts[0], parts[1]));
+                list.add(new Student(parts[0], "Student", parts[1]));
 
             }
         }catch (Exception e){
-            throw new NavigationException("ERR003", Messages.msg[3]);
+            throw new NavigationException(Messages.msg[3]);
         }
         return list.toArray(new Student[0]);
     }
