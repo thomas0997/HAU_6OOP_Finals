@@ -49,8 +49,12 @@ public class Main {
 
             case 2 -> {
                 System.out.print("Enter Student ID: "); String studentID = input.nextLine();
-                System.out.print("Enter Your Program: "); String program = input.nextLine();
+                System.out.print("Enter Your Program (BS-Cybersecurity, BS-Aeronautical-Engineering, etc...): "); String program = input.nextLine();
                 Student studentObject = new Student("Student", studentID, program);
+
+                DataManager dm = new DataManager("Data/Records.csv");
+                dm.saveStudents(new Student[]{studentObject});
+
                 return studentObject;
             }
 
