@@ -63,18 +63,18 @@ public class DataManager {
                 switch (type) {
                     case "Admin" -> {
                         int floorCount = Integer.parseInt(p[6]);
-                        list.add(new AdminBuilding(name, description, x, y, id,
-                                floorCount, new String[]{}, p[7]));
+                        String[] facilities = p[8].isEmpty() ? new String[]{} : p[8].split(";");
+                        list.add(new AdminBuilding(name, description, x, y, id, floorCount, facilities, p[7]));
                     }
                     case "Academic" -> {
                         int floorCount = Integer.parseInt(p[6]);
-                        list.add(new AcademicBuilding(name, description, x, y, id,
-                                floorCount, new String[]{}, p[7].split(";")));
+                        String[] facilities = p[8].isEmpty() ? new String[]{} : p[8].split(";");
+                        list.add(new AcademicBuilding(name, description, x, y, id, floorCount, facilities, p[7].split(";")));
                     }
                     case "Building" -> {
                         int floorCount = Integer.parseInt(p[6]);
-                        list.add(new Building(name, description, x, y, id,
-                                floorCount, new String[]{}));
+                        String[] facilities = p[8].isEmpty() ? new String[]{} : p[8].split(";");
+                        list.add(new Building(name, description, x, y, id, floorCount, facilities));
                     }
                     case "Facility" -> list.add(new Facility(name, description, x, y, id, p[6]));
                     case "Event" -> list.add(new Event(name, description, x, y, id, p[6], p[7]));

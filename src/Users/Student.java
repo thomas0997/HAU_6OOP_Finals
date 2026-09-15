@@ -1,7 +1,5 @@
 package Users;
 import Root.Main;
-import Locations.AdminBuilding;
-import Locations.CampusEntity;
 
 public class Student extends User{
     private String studentId, program;
@@ -20,7 +18,7 @@ public class Student extends User{
     }
     @Override 
     public void navigate() {
-        System.out.println("Student acccess: full location + course info ("+ program +")");
+        System.out.println("Student access: full location + course info ("+ program +")");
         for (Locations.CampusEntity e : Main.campus){
             if (!(e instanceof Locations.AdminBuilding)){
                 System.out.println(e.getInfo());

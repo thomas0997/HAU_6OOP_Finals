@@ -10,8 +10,12 @@ public class Building extends CampusEntity {
         this.facilities = facilities;
     }
 
+    public String[] getFacilities() { return facilities; } 
+
+
     @Override
     public String getInfo() {
-        return "[Building] " + getName() + " | Floors: " + floorCount;
+        return "[Building] " + getName() + " | Floors: " + floorCount +
+            " | Facilities: " + String.join(", ", facilities);
     }
 }
