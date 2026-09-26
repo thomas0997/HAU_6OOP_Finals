@@ -4,8 +4,8 @@ import Root.Main;
 public class Faculty extends User {
     private String password, facultyID;
 
-    public Faculty (String usertype, String password, String facultyID) {
-        super(usertype);
+    public Faculty (String usertype, String name, String password, String facultyID) {
+        super(usertype,name);
         this.password = password;
         this.facultyID = facultyID;
     }

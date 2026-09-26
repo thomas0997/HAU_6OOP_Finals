@@ -4,8 +4,8 @@ import Root.Main;
 public class Visitor extends User {
     private String purposeOfVisit, typeOfID;
 
-    public Visitor(String usertype, String purposeOfVisit, String typeOfID) {
-        super(usertype);
+    public Visitor(String usertype,String name, String purposeOfVisit, String typeOfID) {
+        super(usertype, name);
         this.purposeOfVisit = purposeOfVisit;
         this.typeOfID = typeOfID;
     }

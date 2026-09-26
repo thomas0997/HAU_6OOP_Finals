@@ -19,58 +19,58 @@ public class Main {
     static DecimalFormat df = new DecimalFormat("##,##0.00");
     static Scanner input = new Scanner(System.in);
 
-
-    public static User login() throws NavigationException{
+    public static User login() throws NavigationException {
         System.out.println("""
-[1] Faculty
-[2] Student
-[Other] Visitor
-        """);
+            [1] Faculty
+            [2] Student
+            [Other] Visitor
+            """);
 
         int userRole = -1;
         boolean validEntry = false;
-        while (!(validEntry)){
-            try{
-                System.out.print("Enter Choice :  "); userRole = input.nextInt(); input.nextLine();
+        while (!validEntry) {
+            try {
+                System.out.print("Enter Choice: ");
+                userRole = input.nextInt();
+                input.nextLine();
                 validEntry = true;
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Error: " + Messages.msg[4]);
                 input.nextLine();
             }
         }
 
-        switch (userRole){
-            case 1 -> {
+        System.out.print("Enter Your Name: ");
+        String name = input.nextLine();
 
+        User userObj;
+
+        switch (userRole) {
+            case 1 -> {
                 System.out.print("Enter Faculty ID: "); String facultyID = input.nextLine();
                 System.out.print("Enter Password: "); String password = input.nextLine();
-                Faculty facultyObject = new Faculty("Faculty", password, facultyID);
-
-                if (!(facultyObject.authenticate())){
+                Faculty facultyObject = new Faculty("Faculty", name, password, facultyID);
+                if (!facultyObject.authenticate()) {
                     throw new NavigationException(Messages.msg[5]);
-                } 
-                return facultyObject;
+                }
+                userObj = facultyObject;
             }
-
             case 2 -> {
                 System.out.print("Enter Student ID: "); String studentID = input.nextLine();
-                System.out.print("Enter Your Program (BS-Cybersecurity, BS-Aeronautical-Engineering, etc...): "); String program = input.nextLine();
-                Student studentObject = new Student("Student", studentID, program);
-
-                DataManager dm = new DataManager("Data/Records.csv");
-                dm.saveStudents(new Student[]{studentObject});
-
-                return studentObject;
+                System.out.print("Enter Your Program (Example: BS_Cybersecurity, BS_Aeronautical_Engineering etc..): "); String program = input.nextLine();
+                userObj = new Student("Student", name, studentID, program);
             }
-
-
             default -> {
                 System.out.print("Enter Purpose of Visit: "); String purpose = input.nextLine();
                 System.out.print("Enter What type of ID to Leave: "); String typeOfID = input.nextLine();
-                Visitor visitorObject = new Visitor("Visitor", purpose, typeOfID);
-                return visitorObject;
+                userObj = new Visitor("Visitor", name, purpose, typeOfID);
             }
         }
+
+        DataManager dm = new DataManager("Data/Records.csv");
+        dm.saveUser(userObj);
+
+        return userObj;
     }
 
 
@@ -104,7 +104,7 @@ public class Main {
             campus = loadCampusData();
         } catch (NavigationException e) {
             System.out.println("Error: " + e.getMessage());
-            return; // can't run without campus data
+            return; // can't run pag walang campus data
         }
         User currentUser = null;
 
@@ -117,7 +117,7 @@ public class Main {
             }
         }
 
-        System.out.println("\nWelcome, " + currentUser.getUserType() + "! (ID: " + currentUser.getUserID() + ")");
+        System.out.println("\nWelcome, " + currentUser.getName() + "! (ID: " + currentUser.getUserID() + ")");
         currentUser.navigate();
 
         boolean isRunning = true;

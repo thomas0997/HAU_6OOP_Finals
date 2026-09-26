@@ -1,7 +1,23 @@
 type,id,name,description,x,y,extra1,extra2,facilities
-Admin,B1,Summit Hall,Main admin building,-8.4,-9.5,5,8AM-5PM,President's Office;Registrar;Accounting
-Academic,B10,Thomas J Franco Nexus Bldg,ICT college building,6,10,4,BSIT;BSCS;BSCyberSec,Computer Lab;Canteen
-Building,B9,St. Gabriel Hall,Basic education building,5,5,3,,Library;Faculty Room
-Facility,B5,Colosseum Gym,Gym Sports Office Swimming Pool,-8,10,Gym,,
-Facility,B16,Main Gate,Campus entrance,0,-14,Entrance,,
-Event,E01,OOP Project Defense,Defense presentation for 6OOP,6,8,Oct 15 9AM,CYB-201,
+Admin,C05,Summit Hall,Main administrative building housing key university offices,-9,-11,5,8AM-5PM,President's Office;Accounting;Registrar;Admission;VPAA;USGO
+Facility,C01,Morongan Dorm Building A (Boys),Male student dormitory,-16,-2.5,Dorm,,Dorm
+Facility,C02,Morongan Dorm Building B (Girls),Female student dormitory,-16,-5.5,Dorm,,Dorm
+Facility,B07,Chapel of Holy Haven,Campus chapel for religious activities,18.5,0,Chapel,,Chapel;NSTP Office
+Facility,A01,Colosseum Gym,Sports and recreation facility,-8.5,14,Gym,,Gym;Sports Office;Swimming Pool;Table Tennis Training Centre;Canteen
+Facility,A02,The Behemoth,Athletic stadium and sports grounds,-8.5,7,Stadium,,Football Field;Sports Ground;University Stadium;Food Hall
+Facility,C06,Pleasant Park,Campus landmark park with a statue,0,0,Park,,Rene Baterbonia Statue
+Academic,B03,Tanglaw Hall,Cultural and learning facility,17,13,4,,Museum;Library
+Academic,D01,St. Gabriel Hall,Basic education building,6.5,-9.5,4,Basic Education,Library;High School;Elementary;Principal's Office;Canteen
+Academic,B01,Thomas J Franco Nexus BLDG,ICT college building,14.5,4,4,College of Technology,CoT Students Lab;Lec Room;Dean's Office;Canteen
+Academic,B05,Sean D Dayrit Mediora Building,Nursing college building,11,4.5,4,College of Medicine,Nursing Lab CoM;Dean's Office;Canteen
+Academic,D02,Vista AcademicHall,Engineering and arts college building,17.5,-7,4,College of Engineering and Architecture,Student Lounge;Theatre;Main Canteen;Main Faculty Room;Engineering Lab;CEA Dean's Office;Canteen
+Academic,B06,Mindscape Centre,Arts and sciences college building,4.5,4.5,4,College of Arts and Sciences and College of Criminal Justice,CoAS Lab and Lec;CCJ Dean Office
+Academic,B02,Pioneer Bldg,Hospitality and tourism college building,14.5,11.3,4,College of Tourism and Hospitality,COTH Dean's Office
+Academic,B04,Dr H. Satumbaga Academic Hall,Education and business college building,16.7,6.3,4,College of Education,CoED Dean's Office;Canteen;Lab and Lec Rooms
+Facility,D04,Main Gate,Main campus entrance,0,-19,Entrance,,
+Facility,C03,Chance Bldg,Student clinic and guidance office,-10,-2.3,Clinic,,Clinic;Guidance Counselor
+Facility,C04,Auron Inc Theater,Campus theater,-3.3,-5,Theater,,Theater
+Facility,B08,Academic Park,Open park space,9.8,8.4,Park,,Park
+Facility,D03,Main Pleasant Park,Open park space,8.9,-5.5,Park,,Park
+Facility,C07,Green Pastures Park,Open park space,-10,-6.3,Park,,Park
+Facility,A03,Parking,Vehicle Parking Area with 5 Levels,-19,11.3,Parking,,Parking

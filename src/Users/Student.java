@@ -4,8 +4,8 @@ import Root.Main;
 public class Student extends User{
     private String studentId, program;
     
-    public Student(String usertype, String studentId, String program) {
-        super(usertype);
+    public Student(String usertype, String name, String studentId, String program) {
+        super(usertype, name);
         this.studentId = studentId;
         this.program = program;
     }
