@@ -21,3 +21,5 @@ Facility,B08,Academic Park,Open park space,9.8,8.4,Park,,Park
 Facility,D03,Main Pleasant Park,Open park space,8.9,-5.5,Park,,Park
 Facility,C07,Green Pastures Park,Open park space,-10,-6.3,Park,,Park
 Facility,A03,Parking,Vehicle Parking Area with 5 Levels,-19,11.3,Parking,,Parking
+Event,A02,University Days,Annual university-wide celebration,-8.5,14,Oct 1 8AM,Student Affairs,
+Event,A01,CoT Days,College of Techonology Days,-8.5,14,Nov 7 8Am,Student Affairs, 

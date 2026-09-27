@@ -23,7 +23,7 @@ public class Main {
         System.out.println("""
             [1] Faculty
             [2] Student
-            [Other] Visitor
+            [3 or Any Other Number] Visitor
             """);
 
         int userRole = -1;
